@@ -10,73 +10,106 @@
 </head>
 
 <body>
-    <div class="regform"><h1> Player Registration </h1></div>
-        <div class="main">
-    
-
-    <br>
-
-    <form action="register.html" method="GET">
-        <div id="name">
-            <h2 class="name">Name</h2>
-            <input class="fullname" type="text" name="fullname" id="fullname" required>
-            <!-- <label class="firstlabel">Name</label> -->
-           
-        </div>
-
-        <h2 class="name">Number</h2>
-        <input class="number" type="number" name="number" id="number">
-
-        <h2 class="name">Team</h2>
-        <input class="number" type="text" name="team" id="team">
-
-        <h2 class="name">Position</h2>
-        <select class="option" name="position" id="position">
-            <option disabled="disabled" selected="selected">--Choose Option</option>
-            <option>Attacker</option>
-            <option>Midfielder</option>
-            <option>Defender</option>
-            <option>Goalkeeper</option>
-
-        </select>
-
-        <button type="reset">Clear</button>
-        <button type="button" id="register" onclick="createPlayer()">Register</button>
-        <button type="button" id="show" onclick="getData()">Show All Players</button>
-        <button type="button" id="remove" onclick="removePlayer()">Remove Player</button>
+    <div class="regform">
+        <h1> Player Registration </h1>
+    </div>
+    <div class="main">
 
 
-        <button action="http://localhost:8080/get/" onclick="getById(2)">Find Player By ID</button>
-        <div id="f2" style="display: none;">
-        <form class="id">
-            <h2>Find Player By ID</h2> 
-            <label for="id">ID</label>
-            <input id="id" type="text" placeholder="Player ID..." name="id">
+        <br>
+
+        <form action="register.html" method="GET">
+            <div id="name">
+                <h2 class="name">Name</h2>
+                <input class="fullname" type="text" name="fullname" id="fullname" required>
+                <!-- <label class="firstlabel">Name</label> -->
+
+            </div>
+
+            <h2 class="name">Number</h2>
+            <input class="number" type="number" name="number" id="number">
+
+            <h2 class="name">Team</h2>
+            <input class="number" type="text" name="team" id="team">
+
+            <h2 class="name">Position</h2>
+            <select class="option" name="position" id="position">
+                <option disabled="disabled" selected="selected">--Choose Option</option>
+                <option>Attacker</option>
+                <option>Midfielder</option>
+                <option>Defender</option>
+                <option>Goalkeeper</option>
+
+            </select>
+
+            <button type="reset">Clear</button>
+            <button type="button" id="register" onclick="createPlayer()">Register</button>
+            <button type="button" id="show" onclick="getData()">Show All Players</button>
+            <button type="button" id="remove" onclick="removePlayer(id)">Remove Player</button>
+
+            <button onclick="showMenu()">Find Player By...</button>
+            <div id="m1" style="display:none;">
+                <table>
+                    <button onclick="openF(2);">ID</button>
+                    <button onclick="openF(3);">Number</button>
+                    <button onclick="openF(4);">Name</button>
+                </table>
+            </div>
+
+            <div id="f2" style="display: none;">
+                <form action="http://localhost:8080/get/" class="findById">Find Player By ID
+
+                    <h2>Find Player By ID</h2>
+                    <label for="id">ID</label>
+
+                    <input id="id" type="text" placeholder="Player ID..." name="id">
+                    <button type="button" class="Btn" onclick="showData(2)">Find</button>
+                    <button type="button" class="Close" onclick="closeF(1)">Close</button>
+
+                </form>
+            </div>
+
+            <div id="f3" style="display: none;">
+                <form action="http://localhost:8080/getByNumber" class="findByNumber">Find Player By Number
+
+                    <h2>Find Player By Number</h2>
+                    <label for="playerNumber">Number</label>
+
+                    <input id="playerNumber" type="text" placeholder="Player Number..." name="playerNumber">
+                    <button type="button" class="Btn" onclick="showData(3)">Find</button>
+                    <button type="button" class="Close" onclick="closeF(1)">Close</button>
+                </form>
+            </div>
+
+            <div id="f4" style="display: none;">
+                <form action="http://localhost:8080/getByName" class="findByName">
+
+                    <h2>Find Player By Name...</h2>
+                    <label for="playerName"></label>
+
+                    <input id="playerName" type="text" placeholder="Player Name..." name="playerName">
+                    <button type="button" class="Btn" onclick="showData(4)">Find</button>
+                    <button type="button" class="Close" onclick="closeF(1)">Close</button>
+                </form>
+            </div>
+
+            <div id="f5" style="display: none;">
+                <form action="http://localhost:8080/replace" class="replacePlayer">
+
+                    <h2>Replace Player</h2>
+                    <label for="replace"></label>
+
+                    <input id="replace" type="text" placeholder="Replace Player By ID..." name="replace">
+                    <button type="button" class="Btn" onclick="showData(4)">Replace</button>
+                    <button type="button" class="Close" onclick="closeF(1)">Close</button>
+                </form>
+            </div>
+            <div id="player"></div>
         </form>
-        </div>
+        <script src="spring.js"></script>
 
-        <button action="http://localhost:8080/getByNumber" onclick="showData(3)">Find Player By Number</button>
-        <div id="f3" style="display: none;">
-        <form class="number">
-            <h2>Find Player By Number</h2> 
-            <label for="id">Number</label>
-            <input id="id" type="text" placeholder="Player Number..." name="number">
-        </form>
-        </div>
+    </div>
 
-        <button action="http://localhost:8080/getByName" onclick="showData(4)">Find Player By Name</button>
-        <div id="f4" style="display: none;">
-        <form class="id">
-            <h2>Find Player By Name</h2> 
-            <label for="name">Name</label>
-            <input id="name" type="text" placeholder="Player Name..." name="name">
-        </form>
-        </div>
-
-    </form>
-<script src="spring.js"></script>
-
-</div>
 </body>
 
 </html>
