@@ -1,8 +1,8 @@
 "use strict"
 
 let getData = async () => {
-    let response = await fetch ('http://localhost:8080/getAll');
-    if (response.status !==200) {
+    let response = await fetch('http://localhost:8080/getAll');
+    if (response.status !== 200) {
         throw new Error("Request Failed");
 
     }
@@ -14,51 +14,49 @@ let getData = async () => {
 
 let showData = async (i) => {
     let returnedData
-    if (i==1) {returnedData = await getData();}
-    if (i==2) {returnedData = await getById();}
-    if (i==3) {returnedData = await getByNumber();}
-    if (i==4) {returnedData = await getByName();}
+    if (i == 1) { returnedData = await getData(); }
+    if (i == 2) { returnedData = await getById(); }
+    if (i == 3) { returnedData = await getByNumber(); }
+    if (i == 4) { returnedData = await getByName(); }
     let allTable =
-    `<tr>
+        `<tr>
     <th>ID</th>
     <th>Name</th>
     <th>Number</th>
     <th>Team</th>
     <th>Position</th>
     </tr>`;
-for (let d=0;d<returnedData.length;d++){
-    allTable += `<tr>
-    <td>`+returnedData[d].id+`</td>
-    <td>`+returnedData[d].name+`</td>
-    <td>`+returnedData[d].number+`</td>
-    <td>`+returnedData[d].team+`</td>
-    <td>`+returnedData[d].position+`</td>
+    for (let d = 0; d < returnedData.length; d++) {
+        allTable += `<tr>
+    <td>`+ returnedData[d].id + `</td>
+    <td>`+ returnedData[d].name + `</td>
+    <td>`+ returnedData[d].number + `</td>
+    <td>`+ returnedData[d].team + `</td>
+    <td>`+ returnedData[d].position + `</td>
     </tr>`;
-}
+    }
 
-console.log(allTable);
-document.getElementById("player").innerHTML = allTable;
-
+    console.log(allTable);
+    document.getElementById("tableResult").innerHTML += allTable;
 }
 
 let getById = async () => {
     let i = parseInt(document.getElementById("id").value);
-    let response = await fetch ('http://localhost:8080/get/' +i);
-    if (response.status !=200) {
+    let response = await fetch('http://localhost:8080/get/' + i);
+    if (response.status != 200) {
         throw new Error("Request Failed");
 
     }
     console.log("Request Successful");
     let jsonData = await response.json();
-    console.log(jsonData);
-    const result = jsonData.keys
-    return jsonData;
+    const result = [{id: jsonData.id, name: jsonData.name, position: jsonData.position, team: jsonData.team, number: jsonData.number}];
+    return result;
 }
 
 let getByName = async () => {
     let i = document.getElementById("playerName").value;
-    let response = await fetch ('http://localhost:8080/getByName/' +i);
-    if (response.status !==200) {
+    let response = await fetch('http://localhost:8080/getByName/' + i);
+    if (response.status !== 200) {
         throw new Error("Request Failed");
 
     }
@@ -86,13 +84,13 @@ let getByName = async () => {
 
     // console.log(allTable);
     // document.getElementById("player").innerHTML = allTable;
-  
+
 }
 
 let getByNumber = async () => {
     let i = parseInt(document.getElementById("playerNumber").value);
-    let response = await fetch ('http://localhost:8080/getByNumber/' +i);
-    if (response.status !==200) {
+    let response = await fetch('http://localhost:8080/getByNumber/' + i);
+    if (response.status !== 200) {
         throw new Error("Request Failed");
 
     }
@@ -118,17 +116,17 @@ function createPlayer() {
         },
         body: JSON.stringify(data),
     })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log("Success:", data);
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Success:", data);
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 let replaceData = async () => {
-    let i = document.getElementById("replaceId").value;
+    let i = document.getElementById("replacePlayer").value;
     const data = {
         name: document.getElementById("rName").value,
         number: document.getElementById("rNumber").value,
@@ -136,69 +134,80 @@ let replaceData = async () => {
         position: document.getElementById("rPosition").value,
     };
 
-    fetch("http://localhost:8080/replace" +i, {
+    fetch("http://localhost:8080/replace/" + i, {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)})
+        body: JSON.stringify(data)
+    })
         .then(response => response.json())
         .then(response => console.log(response))
         .catch(error => error);
-    }
-
-
-
-function removePlayer(id) {
-    fetch("http://localhost:8080/remove/" + id, {
-        method: "DELETE"
-    }).then(response => {
-        console.log(response);
-        renderTodo();
-    }).catch(error => console.error(error));
 }
+
+let removePlayer = async () => {
+    let i = document.getElementById("rPlayer").value;
+    await fetch("http://localhost:8080/remove/" + i, {
+        method: 'DELETE',
+    })
+        .then(response => response.json())
+        .then(response => console.log(respone))
+        .catch(error => error);
+
+}
+
+// function removePlayer(id) {
+//     fetch("http://localhost:8080/remove/" + id, {
+//         method: "DELETE"
+//     }).then(response => {
+//         console.log(response);
+//         renderTodo();
+//     }).catch(error => console.error(error));
+// }
 
 function showHide(obj) {
-    for(x=1;x<=1;x++) {
+    for (x = 1; x <= 1; x++) {
         if (x == obj) {
-            document.getElementById('m' +x).style.display='block';
+            document.getElementById('m' + x).style.display = 'block';
         } else {
-            document.getElementById('m'+x).style.display='none';
+            document.getElementById('m' + x).style.display = 'none';
         }
     }
 }
+
 function openF(obj) {
-    for(let x=1;x<=4;x++) {
+    for (let x = 1; x <= 6; x++) {
         if (x == obj) {
-            document.getElementById('f' +x).style.display='block';
+            document.getElementById('f' + x).style.display = 'block';
         }
 
     }
 }
+
 function closeF(obj) {
-    for(let x=1;x<=4;x++) {
+    for (let x = 1; x <= 6; x++) {
         if (x == obj) {
-            document.getElementById('f' +x).style.display='none';
+            document.getElementById('f' + x).style.display = 'none';
         }
     }
 }
 
 function showID(obj) {
-    if (obj.style.display=="none") {
-        obj.style.display="block"
+    if (obj.style.display == "none") {
+        obj.style.display = "block"
     }
 }
 
 
 function showMenu() {
-    
-    let obj=document.getElementById("m1");
-    if (obj.style.display=="none") {
-        obj.style.display="block"
+
+    let obj = document.getElementById("m1");
+    if (obj.style.display == "none") {
+        obj.style.display = "block"
     }
     else {
-        obj.style.display="none";
+        obj.style.display = "none";
     }
-    
 }
