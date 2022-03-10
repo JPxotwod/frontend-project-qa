@@ -5,7 +5,7 @@ This is my second individual project for QA.
 This README.md file will focus just on the front-end of the project.
 
 Here you will find a link to my Jira board: https://josephp123.atlassian.net/jira/software/projects/QSP/boards/4/backlog
-Here you will find the link to repository on GitHub: https://github.com/JPxotwod/frontend-project-qa
+Here you will find the link to the front-end repository on GitHub: https://github.com/JPxotwod/frontend-project-qa
 ALL DOCUMENTATION AND SO ON WILL BE FOUND IN THE BACK-END REPO.
 
 Project Brief:
@@ -59,9 +59,27 @@ Front-End:
 
 The front-end of my project was built via the use of HTML, CSS and JavaScript. I used HTML to create the front-end, including the layout which consisted of forms, numerous buttons, headings and so on.
 
+For example: <h1> Player Registration </h1> for the title.
+
 I then ustilised CSS to edit the look of the website. This included colour scheme, positioning, padding, spacing etc and included any cool buttons or text boxes where needed.
 
+For example: button:hover{
+    background-color: rgb(32, 78, 18);
+}
+
 I then used JaveScript for API integration and to create multiple functions that were used throughout the website, such as pop-ups or the ability to show/hide requested data.
+
+For example: let getData = async () => {
+    let response = await fetch('http://localhost:8080/getAll');
+    if (response.status !== 200) {
+        throw new Error("Request Failed");
+
+    }
+    console.log("Request Successful");
+    let jsonData = await response.json();
+    console.log(jsonData);
+    return jsonData;
+}
 
 Downloaded software, tools and technologies:
 Version Control System - Git,
